@@ -1,18 +1,12 @@
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
 class Solution:
-    def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
-        self.ans = 0
-        def dfs(node):
-            if not node:
-                return 0
-            left = dfs(node.left)
-            right = dfs(node.right)
-            self.ans = max(left+right+1, self.ans)
-            return max(left, right)+1
-        dfs(root)
-        return self.ans - 1
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        ans = [[]]
+        n = len(nums)
+        visited = [False for i in range(n)]
+        def dfs(i, path):
+            ans.append(path+[nums[i]])
+            for j in range(i+1,n):
+                dfs(j, path + [nums[i]])
+        for i in range(n):
+            dfs(i, [])
+        return ans
